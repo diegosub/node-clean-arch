@@ -1,0 +1,68 @@
+{
+    "name": "@core/node",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "exports": {
+        "./@shared/application": "./dist/@shared/application/index.js",
+        "./@shared/domain": "./dist/@shared/domain/index.js",
+        "./category/application": "./dist/category/application/index.js",
+        "./category/domain": "./dist/category/domain/index.js"
+    },
+    "typesVersions": {
+        ">=4.0": {
+            "@shared/application": [
+                "./dist/@shared/application/index.d.ts"
+            ],
+            "@shared/domain": [
+                "./dist/@shared/domain/index.d.ts"
+            ],
+            "category/application": [
+                "./dist/category/application/index.d.ts"
+            ],
+            "category/domain": [
+                "./dist/category/domain/index.d.ts"
+            ],
+            "category/infra": [
+                "./dist/category/infra/index.d.ts"
+            ]
+        }
+    },
+    "scripts": {
+        "ts-node": "ts-node",
+        "tsc": "tsc",
+        "build": "tsc -b ./tsconfig.json",
+        "build:w": "tsc -b ./tsconfig.json -w",
+        "tsc:check": "npm run tsc -- --noEmit",
+        "clean:tsc": "rm tsconfig.tsbuildinfo",
+        "test": "jest",
+        "test:cov": "npm run test --coverage",
+        "cti": "cti",
+        "cti:@core": "sh ./cti.sh"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@swc/core": "^1.2.204",
+        "@swc/jest": "^0.2.21",
+        "@types/jest": "^28.1.2",
+        "@types/node": "^16.11.7",
+        "@types/uuid": "^8.3.4",
+        "create-ts-index": "^1.14.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "jest": "^28.1.1",
+        "jest-mock-extended": "^2.0.6",
+        "ts-node": "^10.8.1",
+        "ttypescript": "^1.5.13",
+        "typescript": "^4.7.4",
+        "typescript-transform-paths": "^3.3.1"
+    },
+    "dependencies": {
+        "sequelize": "^6.21.2",
+        "sequelize-typescript": "^2.1.3",
+        "sqlite3": "^5.0.8",
+        "uuid": "^8.3.2"
+    }
+}
