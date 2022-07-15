@@ -1,6 +1,6 @@
-import { mock, MockProxy } from 'jest-mock-extended';
+import { any, mock, MockProxy } from 'jest-mock-extended';
 import { Category, CategoryRepository } from '../../../domain';
-import { DeactivateCategoryUseCase } from '../../../application';
+import { DeactivateCategoryUseCase } from '../deactivate-category.usecase';
 
 describe('Unit tests deactivate category usecase', () => {
     let repository: MockProxy<CategoryRepository>;
@@ -14,10 +14,12 @@ describe('Unit tests deactivate category usecase', () => {
     it("deactivate a category", async () => {
 
         var id = "uuid";
-        var category = Category.create("Viagens");
-        category.deactivate();
+        var activeCategory = Category.create("Viagens");
+        var inactiveCategory = Category.create("Lazer");
+        inactiveCategory.deactivate();
 
-        repository.deactivate.calledWith(id).mockReturnValueOnce(Promise.resolve(category));
+        repository.getById.calledWith(any()).mockReturnValueOnce(Promise.resolve(activeCategory));
+        repository.update.calledWith(any()).mockReturnValueOnce(Promise.resolve(inactiveCategory));
         let output = await usecase.execute(id);
 
         expect(output).toBeTruthy();
@@ -31,7 +33,7 @@ describe('Unit tests deactivate category usecase', () => {
         var id = "uuid";
         var errorExpectedMessage = "Repository error";
 
-        repository.deactivate.calledWith(id).mockRejectedValue(new Error(errorExpectedMessage))
+        repository.getById.calledWith(id).mockRejectedValue(new Error(errorExpectedMessage))
         expect(() => usecase.execute(id)).rejects.toThrow(new Error(errorExpectedMessage));
     })
 });

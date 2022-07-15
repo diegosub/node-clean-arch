@@ -13,8 +13,8 @@ export class ListCategoryUseCase implements UseCase<SearchQuery, Pagination<Cate
 
         var items: any[] = [];
 
-        if (categories && categories.length > 0) {
-            items = categories.map(item => {
+        if (categories && categories.items.length > 0) {
+            items = categories.items.map(item => {
                 return CategoryMapper.toOutput(item);
             });
         }

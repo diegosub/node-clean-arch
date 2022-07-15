@@ -1,6 +1,6 @@
 import { ActivateCategoryUseCase } from '../../../application';
 import { Category, CategoryRepository } from '../../../domain';
-import { mock, MockProxy } from 'jest-mock-extended';
+import { any, mock, MockProxy } from 'jest-mock-extended';
 
 
 describe('Unit tests activate category usecase', () => {
@@ -12,12 +12,15 @@ describe('Unit tests activate category usecase', () => {
         usecase = new ActivateCategoryUseCase(repository);
     })
 
-    it("activate a category", async () => {
+    test("activate a category", async () => {
 
         var id = "uuid";
         var activeCategory = Category.create("Viagens");
+        var inactiveCategory = Category.create("Viagens");
+        inactiveCategory.deactivate();
 
-        repository.activate.calledWith(id).mockReturnValueOnce(Promise.resolve(activeCategory));
+        repository.getById.calledWith(any()).mockReturnValueOnce(Promise.resolve(inactiveCategory));
+        repository.update.calledWith(any()).mockReturnValueOnce(Promise.resolve(activeCategory));
         let output = await usecase.execute(id);
 
         expect(output).toBeTruthy();
@@ -26,12 +29,12 @@ describe('Unit tests activate category usecase', () => {
         expect(output.active).toBe(true);
     })
 
-    it("activate a category when return a repository exception", () => {
+    test("activate a category when return a repository exception", () => {
 
         var id = "uuid";
         var errorExpectedMessage = "Repository error";
 
-        repository.activate.calledWith(id).mockRejectedValue(new Error(errorExpectedMessage))
+        repository.getById.calledWith(id).mockRejectedValue(new Error(errorExpectedMessage))
         expect(() => usecase.execute(id)).rejects.toThrow(new Error(errorExpectedMessage));
     })
 

@@ -18,10 +18,17 @@ describe('Unit tests list category usecase', () => {
 
         var query: SearchQuery = {} as SearchQuery;
 
-        var categories = [
-            Category.create("Lazer"),
-            Category.create("Viagens")
-        ]
+        var categories =
+            new Pagination<Category>({
+                items: [
+                    Category.create('Lazer'),
+                    Category.create('Alimentação'),
+                ],
+                total: 1,
+                page: 1,
+                perPage: 10
+            })
+
 
         repository.findAll.calledWith(query).mockReturnValueOnce(Promise.resolve(categories));
         let output = await usecase.execute(query);
@@ -44,10 +51,16 @@ describe('Unit tests list category usecase', () => {
         } as SearchQuery;
         var props = {} as PaginationProps<CategoryOutput>;
 
-        var categories = [
-            Category.create("Lazer"),
-            Category.create("Viagens")
-        ]
+        var categories =
+            new Pagination<Category>({
+                items: [
+                    Category.create('Lazer'),
+                    Category.create('Alimentação'),
+                ],
+                total: 1,
+                page: 1,
+                perPage: 10
+            })
 
         repository.findAll.calledWith(query).mockReturnValueOnce(Promise.resolve(categories));
         let output = await usecase.execute(query);
@@ -94,7 +107,7 @@ describe('Unit tests list category usecase', () => {
         var props = {} as PaginationProps<CategoryOutput>;
         var pagination = new Pagination<CategoryOutput>(props);
 
-        var categories: any[] = [];
+        var categories: any = null;
 
         repository.findAll.calledWith(query).mockReturnValueOnce(Promise.resolve(categories));
         let output = await usecase.execute(query);

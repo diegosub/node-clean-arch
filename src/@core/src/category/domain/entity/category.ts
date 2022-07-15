@@ -50,6 +50,10 @@ export class Category extends Entity<CategoryProperties> {
         }
     }
 
+    static with(id: string, name: string, active: boolean, createdAt: Date, updatedAt: Date, deletedAt: Date) {
+        return new Category({ name, active, createdAt, updatedAt, deletedAt }, Identifier.create(id));
+    }
+
     get name() {
         return this.props.name;
     }
