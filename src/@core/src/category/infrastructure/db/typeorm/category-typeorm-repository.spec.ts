@@ -1,42 +1,45 @@
-import { Category } from "category/domain";
+import { Category } from "../../../domain";
 import { DataSource } from "typeorm";
 import { CategoryModel } from "./category-model";
+import { CategoryTypeormRepository } from "./category-typeorm-repository";
 
 describe('Unit/Integration Test Category repository', () => {
 
-    // let dataSource: DataSource;
+    let dataSource: DataSource;
+    let repository: CategoryTypeormRepository;
 
-    // beforeAll(() => {
+    beforeAll(() => {
 
-    //     dataSource = new DataSource({
-    //         type: "sqlite",
-    //         database: "myspace",
-    //         entities: [CategoryModel],
-    //         synchronize: true,
-    //         logging: true,
-    //     });
+        dataSource = new DataSource({
+            type: "sqlite",
+            database: "myspace",
+            entities: [CategoryModel],
+            synchronize: true,
+            logging: true,
+        });
 
-    // });
+    });
 
-    // beforeEach(async () => {
-    //     await (await dataSource.initialize()).synchronize(true);
-    // })
+    beforeEach(async () => {
+        await (await dataSource.initialize()).synchronize(true);
+        repository = new CategoryTypeormRepository();
+    })
 
-    // afterAll(async () => {
-    //     await dataSource.destroy();
-    // })
+    afterAll(async () => {
+        await dataSource.destroy();
+    })
 
 
-    // it('should insert a new entity', async () => {
+    it('should insert a new entity', async () => {
 
-    //     let category = Category.create('Lazer');
-    //     await repository.insert(category);
+        let category = Category.create('Lazer');
+        await repository.insert(category);
 
-    //     const result = await repository.getById(category.id);
+        const result = await repository.getById(category.id);
 
-    //     expect(result).toBeTruthy();
-    //     expect(result.id).toBe(category.id);
+        expect(result).toBeTruthy();
+        expect(result.id).toBe(category.id);
 
-    // })
+    })
 
 })

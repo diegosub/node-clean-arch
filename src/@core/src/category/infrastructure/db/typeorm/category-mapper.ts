@@ -6,7 +6,7 @@ export class CategoryMapper {
     static toModel(category: Category) {
         var categoryModel = new CategoryModel();
         categoryModel.id = category.id;
-        categoryModel.name = category.id;
+        categoryModel.name = category.name;
         categoryModel.active = category.active;
         categoryModel.createdAt = category.createdAt;
         categoryModel.updatedAt = category.updatedAt;

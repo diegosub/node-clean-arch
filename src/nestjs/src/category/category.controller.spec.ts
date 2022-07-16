@@ -33,9 +33,4 @@ describe('CategoryController', () => {
         expect(expectedOutput).toStrictEqual(output);
     });
 
-    it('teste', async () => {
-        var c = Category.create("Lazer");
-        await repository.insert(c);
-    })
-
 });

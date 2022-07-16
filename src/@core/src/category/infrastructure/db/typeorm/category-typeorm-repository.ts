@@ -3,13 +3,11 @@ import { Pagination, PaginationProps, SearchQuery } from "../../../../@shared/do
 import { Category, CategoryRepository } from "../../../../category/domain";
 import { CategoryMapper } from "./category-mapper";
 import { CategoryModel } from "./category-model";
+import { AppDataSource } from "./connection/data-source";
 
 export class CategoryTypeormRepository implements CategoryRepository {
 
-    constructor(
-        @Injec
-        private repository: Repository<CategoryModel>
-    ) { }
+    repository = AppDataSource.getRepository(CategoryModel);
 
     async insert(category: Category): Promise<Category> {
         return this._save(category);
@@ -21,7 +19,7 @@ export class CategoryTypeormRepository implements CategoryRepository {
 
     async getById(id: string): Promise<Category> {
         const _id = `${id}`;
-        const model = await this.repository.findOneBy({ 'id': _id });
+        const model = await this.repository.findOneByOrFail({ 'id': _id });
         return CategoryMapper.toDomain(model);
     }
 
@@ -33,7 +31,6 @@ export class CategoryTypeormRepository implements CategoryRepository {
             take: query.perPage,
             skip: query.page
         });
-
 
         const props: PaginationProps<Category> = {
             items: result.map(item => CategoryMapper.toDomain(item)),
@@ -47,7 +44,7 @@ export class CategoryTypeormRepository implements CategoryRepository {
 
     private async _save(category: Category) {
         var model = CategoryMapper.toModel(category);
-        model = await this.repository.save(model);
+        await this.repository.save(model);
         return CategoryMapper.toDomain(model);
     }
 
