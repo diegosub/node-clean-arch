@@ -4,9 +4,9 @@ import { CategoryValidator } from "./category-validator";
 
 export type CategoryProperties = {
     name: string;
-    active?: boolean;
-    createdAt?: Date;
-    updatedAt?: Date;
+    active: boolean;
+    createdAt: Date;
+    updatedAt: Date;
     deletedAt?: Date;
 };
 
@@ -17,13 +17,16 @@ export class Category extends Entity<CategoryProperties> {
         id?: Identifier
     ) {
         super(props, id);
-        this.props.active = true;
-        this.props.createdAt = new Date();
-        this.props.updatedAt = new Date();
     }
 
     static create(name: string) {
-        return new Category({ name: name });
+        const props = {
+            name: name,
+            active: true,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        }
+        return new Category(props);
     }
 
     validate(handler: Handler) {

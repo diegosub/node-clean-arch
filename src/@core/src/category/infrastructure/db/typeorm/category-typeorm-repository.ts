@@ -3,11 +3,17 @@ import { Pagination, PaginationProps, SearchQuery } from "../../../../@shared/do
 import { Category, CategoryRepository } from "../../../../category/domain";
 import { CategoryMapper } from "./category-mapper";
 import { CategoryModel } from "./category-model";
-import { AppDataSource } from "./connection/data-source";
 
 export class CategoryTypeormRepository implements CategoryRepository {
 
-    repository = AppDataSource.getRepository(CategoryModel);
+    //repository = AppDataSource.getRepository(CategoryModel);
+
+
+    constructor(
+        private repository: Repository<CategoryModel>
+    ) {
+
+    }
 
     async insert(category: Category): Promise<Category> {
         return this._save(category);

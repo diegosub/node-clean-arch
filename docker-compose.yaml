@@ -1,5 +1,9 @@
 version: '3'
 
+networks:
+  myspace-network:
+    driver: bridge
+
 services: 
   app: 
     build: .
@@ -10,3 +14,19 @@ services:
       - ./.docker/zsh/history:/home/node/zsh:delegated
     ports:
       - 3000:3000
+    networks:
+      - myspace-network
+
+  server-postgres:
+    image: postgres:14.1
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=myspace
+    ports:
+      - "5432:5432"
+    volumes:
+    - /home/diego/Documents/Develop/postgres-server/postgres-data:/var/lib/postgresql/data
+    networks:
+      - myspace-network    
+

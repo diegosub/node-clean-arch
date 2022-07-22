@@ -22,7 +22,7 @@ describe('Unit/Integration Test Category repository', () => {
 
     beforeEach(async () => {
         await (await dataSource.initialize()).synchronize(true);
-        repository = new CategoryTypeormRepository();
+        //repository = new CategoryTypeormRepository(repository);
     })
 
     afterAll(async () => {

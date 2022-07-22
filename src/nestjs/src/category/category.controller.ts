@@ -17,11 +17,11 @@ export class CategoryController {
     @Inject(ListCategoryUseCase)
     private listUseCase: ListCategoryUseCase;
 
-    // @Inject(ActivateCategoryUseCase)
-    // private activateUseCase: ActivateCategoryUseCase;
+    @Inject(ActivateCategoryUseCase)
+    private activateUseCase: ActivateCategoryUseCase;
 
-    // @Inject(DeactivateCategoryUseCase)
-    // private deactivateUseCase: DeactivateCategoryUseCase;
+    @Inject(DeactivateCategoryUseCase)
+    private deactivateUseCase: DeactivateCategoryUseCase;
 
     @Post()
     create(@Body() input: CreateCategoryInput) {
@@ -44,8 +44,13 @@ export class CategoryController {
         return this.updateUseCase.execute(input);
     }
 
-    // @Delete(':id')
-    // remove(@Param('id') id: string) {
-    //   return this.categoryService.remove(+id);
-    // }
+    @Patch('/activate/:id')
+    ativar(@Param('id') id: string) {
+        return this.activateUseCase.execute(id);
+    }
+
+    @Patch('deactivate/:id')
+    inativar(@Param('id') id: string) {
+        return this.deactivateUseCase.execute(id);
+    }
 }

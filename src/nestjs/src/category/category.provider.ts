@@ -1,12 +1,17 @@
-import { CreateCategoryUseCase, GetCategoryUseCase, ListCategoryUseCase, UpdateCategoryUseCase } from '@core/node/category/application';
+import { ActivateCategoryUseCase, CreateCategoryUseCase, DeactivateCategoryUseCase, GetCategoryUseCase, ListCategoryUseCase, UpdateCategoryUseCase } from '@core/node/category/application';
 import { CategoryRepository } from '@core/node/category/domain';
-import { CategoryTypeormRepository } from '@core/node/category/infrastructure';
+import { CategoryModel, CategoryTypeormRepository } from '@core/node/category/infrastructure';
+import { getDataSourceToken } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 
 export namespace CATEGORY_PROVIDERS {
     export namespace REPOSITORIES {
         export const CATEGORY_REPOSITORY = {
-            provide: 'CategoryRepository',
-            useClass: CategoryTypeormRepository,
+            provide: CategoryTypeormRepository,
+            useFactory: (dataSource: DataSource) => {
+                return new CategoryTypeormRepository(dataSource.getRepository(CategoryModel));
+            },
+            inject: [getDataSourceToken()],
         };
     }
 
@@ -39,6 +44,22 @@ export namespace CATEGORY_PROVIDERS {
             provide: GetCategoryUseCase,
             useFactory: (repository: CategoryRepository) => {
                 return new GetCategoryUseCase(repository);
+            },
+            inject: [REPOSITORIES.CATEGORY_REPOSITORY.provide],
+        };
+
+        export const ACTIVATE_CATEGORY_USE_CASE = {
+            provide: ActivateCategoryUseCase,
+            useFactory: (repository: CategoryRepository) => {
+                return new ActivateCategoryUseCase(repository);
+            },
+            inject: [REPOSITORIES.CATEGORY_REPOSITORY.provide],
+        };
+
+        export const DEACTIVATE_CATEGORY_USE_CASE = {
+            provide: DeactivateCategoryUseCase,
+            useFactory: (repository: CategoryRepository) => {
+                return new DeactivateCategoryUseCase(repository);
             },
             inject: [REPOSITORIES.CATEGORY_REPOSITORY.provide],
         };

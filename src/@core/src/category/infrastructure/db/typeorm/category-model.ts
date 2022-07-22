@@ -2,7 +2,7 @@
 import { Column, Entity, PrimaryColumn, BaseEntity } from "typeorm";
 
 @Entity('tb_category')
-export class CategoryModel extends BaseEntity {
+export class CategoryModel {
 
     @PrimaryColumn({ type: 'text' })
     id: string;
@@ -13,13 +13,13 @@ export class CategoryModel extends BaseEntity {
     @Column({ name: 'active', type: 'boolean', nullable: false })
     active: boolean;
 
-    @Column({ name: 'created_at', type: 'timestamp', nullable: false })
+    @Column({ name: 'created_at', nullable: false })
     createdAt: Date;
 
-    @Column({ name: 'updated_at', type: 'timestamp', nullable: false })
+    @Column({ name: 'updated_at', nullable: false })
     updatedAt: Date;
 
-    @Column({ name: 'deleted_at', type: 'timestamp', nullable: true })
+    @Column({ name: 'deleted_at', nullable: true })
     deletedAt: Date;
 
 }
