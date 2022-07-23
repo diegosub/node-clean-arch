@@ -6,14 +6,7 @@ import { CategoryModel } from "./category-model";
 
 export class CategoryTypeormRepository implements CategoryRepository {
 
-    //repository = AppDataSource.getRepository(CategoryModel);
-
-
-    constructor(
-        private repository: Repository<CategoryModel>
-    ) {
-
-    }
+    constructor(private repository: Repository<CategoryModel>) { }
 
     async insert(category: Category): Promise<Category> {
         return this._save(category);

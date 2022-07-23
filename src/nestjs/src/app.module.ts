@@ -1,5 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ExceptionsFilterModule } from './@filter';
+import { LoggerServiceModule } from './@logger';
 import { AppService } from './app.service';
 import { CategoryModule } from './category/category.module';
 
@@ -15,6 +18,10 @@ import { CategoryModule } from './category/category.module';
             autoLoadEntities: true,
             synchronize: false,
         }),
+        ConfigModule.forRoot({
+            isGlobal: true,
+        }),
+        ExceptionsFilterModule,
         CategoryModule
     ],
     providers: [AppService],

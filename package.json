@@ -1,29 +1,29 @@
 {
-  "name": "node-clean-arch",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "workspaces": [
-    "./src/@core",
-    "./src/nestjs"
-  ],
-  "scripts": {
-    "prestart:dev": "npm run build -w @core/node",
-    "start:dev": "npm run build:w -w @core/node & npm run start:dev -w nestjs",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/diegosub/node-clean-arch.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/diegosub/node-clean-arch/issues"
-  },
-  "homepage": "https://github.com/diegosub/node-clean-arch#readme",
-  "dependencies": {
-    "pg": "^8.7.3"
-  }
+    "name": "node-clean-arch",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "workspaces": [
+        "./src/@core",
+        "./src/nestjs"
+    ],
+    "scripts": {
+        "prestart:dev": "npm run build -w @core/node",
+        "start:dev": "npm run build:w -w @core/node & npm run start:dev -w nestjs",
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/diegosub/node-clean-arch.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/diegosub/node-clean-arch/issues"
+    },
+    "homepage": "https://github.com/diegosub/node-clean-arch#readme",
+    "dependencies": {
+        "pg": "^8.7.3"
+    }
 }
